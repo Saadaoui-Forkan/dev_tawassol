@@ -6,10 +6,13 @@ const app = express()
 // connect database
 connectDB();
 
+// Init Middleware
+app.use(express.json())
+
 app.get('/', (req,res) => res.send('API running'))
 
 // Define Routes
-app.get('/api/users', require('./routes/api/users'))
+app.use('/api/users', require('./routes/api/users'))
 app.get('/api/auth', require('./routes/api/auth'))
 app.get('/api/profile', require('./routes/api/profile'))
 app.get('/api/posts', require('./routes/api/posts'))
