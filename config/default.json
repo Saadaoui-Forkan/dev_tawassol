@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://Mahmoud:Forkan2017@cluster0.ia1kem0.mongodb.net/?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://mahmoud:ze27O2lkJhnmGE2M@devtawassol.q27fbcg.mongodb.net/",
+    "secret_key": "super-secret-key"
 }
