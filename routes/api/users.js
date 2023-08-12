@@ -8,7 +8,7 @@ const { check, validationResult } = require('express-validator')
 const User = require('../../models/User')
 
 // @route   Post api/users
-// @desc    Test route
+// @desc    Register User
 // @access  Public
 router.post('/',
     [
@@ -52,7 +52,7 @@ router.post('/',
 
             // Encrypt Password
             const salt = await bcrypt.genSalt(10)
-            user.passwod = await bcrypt.hash(password, salt)
+            user.password = await bcrypt.hash(password, salt)
             await user.save()
 
             // Return jwt
