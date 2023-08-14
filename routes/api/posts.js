@@ -89,8 +89,8 @@ router.delete("/:id", protect, async (req, res) => {
       return res.status(401).json({ msg: "User not authorized" });
     }
 
-    await post.remove();
-    res.json({ msg: "Psot removed" });
+    await post.remove;
+    res.json({ msg: "Post removed" });
   } catch (err) {
     console.error(err.message);
     if (err.kind === "ObjectId") {
