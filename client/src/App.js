@@ -1,8 +1,12 @@
+import Landing from "./components/layout/Landing";
+import Navbar from "./components/layout/Navbar";
+
 function App() {
   return (
-    <div >
-      <h1>dev connecter</h1>
-    </div>
+    <>
+      <Navbar/>
+      <Landing/>
+    </>
   );
 }
 
