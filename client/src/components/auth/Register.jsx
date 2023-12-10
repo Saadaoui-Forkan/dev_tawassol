@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux'
 import { Link } from "react-router-dom";
-import axios from 'axios'
+// import axios from 'axios'
+import { alertActions } from '../../redux/slices/alertSlice'
 
 function Register() {
+  const dispatch = useDispatch()
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,6 +22,13 @@ function Register() {
 
   const onSubmit = async e => {
     e.preventDefault()
+    if (password !== password2) {
+      dispatch(alertActions.setAlerts({
+        id: new Date().getTime(),
+        type: "danger",
+        msg:"Passwords does not mutch"
+      }))
+    }
     console.log("success")
   }
   
