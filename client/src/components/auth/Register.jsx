@@ -23,15 +23,16 @@ function Register() {
   const onSubmit = async e => {
     e.preventDefault()
     if (password !== password2) {
-      dispatch(alertActions.setAlerts({
+      const error = {
         id: new Date().getTime(),
         type: "danger",
         msg:"Passwords does not mutch"
-      }))
-    }
+      };
+      dispatch(alertActions.setAlerts(error))
+      setTimeout(()=> dispatch(alertActions.removeAlert(error)), 3000)
+    }    
     console.log("success")
   }
-  
   return (
     <section className="container">
       <h1 className="large text-primary">Sign Up</h1>
