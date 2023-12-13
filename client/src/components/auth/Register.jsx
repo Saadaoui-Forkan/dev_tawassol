@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
 import { Link } from "react-router-dom";
-// import axios from 'axios'
 import { alertActions } from '../../redux/slices/alertSlice'
+import { registerUser } from "../../redux/apiCall/authApiCall";
 
 function Register() {
   const dispatch = useDispatch()
@@ -31,7 +31,7 @@ function Register() {
       dispatch(alertActions.setAlerts(error))
       setTimeout(()=> dispatch(alertActions.removeAlert(error)), 3000)
     }    
-    console.log("success")
+    dispatch(registerUser(formData))
   }
   return (
     <section className="container">
@@ -47,7 +47,6 @@ function Register() {
             name="name" 
             value={name}
             onChange={e => onChange(e)}
-            required 
           />
         </div>
         <div className="form-group">
@@ -70,7 +69,6 @@ function Register() {
             name="password" 
             value={password}
             onChange={e => onChange(e)}
-            minLength="6"
           />
         </div>
         <div className="form-group">
@@ -80,7 +78,6 @@ function Register() {
             name="password2" 
             value={password2}
             onChange={e => onChange(e)}
-            minLength="6"
           />
         </div>
         <input 

@@ -7,10 +7,10 @@ const alertSlice = createSlice({
   },
   reducers: {
     setAlerts(state, action) {
-        state.alerts = [...state.alerts, action.payload]
+      state.alerts = [...state.alerts, action.payload]
     },
     removeAlert(state, action) {
-        state.alerts = state.alerts.filter(alert => alert.id === action.payload?.id)
+      state.alerts = state.alerts.filter(alert => alert.id === action.payload?.id)
     }
   },
 });
