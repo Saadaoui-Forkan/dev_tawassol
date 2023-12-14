@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginUser } from '../../redux/apiCall/authApiCall';
 
   function Login() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const auth = useSelector(state => state.auth)
+
     const [formData, setFormData] = useState({
       email: '',
       password: ''
@@ -15,7 +21,10 @@ import { Link } from 'react-router-dom';
   
     const onSubmit = async e => {
       e.preventDefault()
-      console.log("success")
+      dispatch(loginUser(formData))
+      if (auth.user) {
+        navigate('/')
+      }
     }
   return (
     <section className="container">

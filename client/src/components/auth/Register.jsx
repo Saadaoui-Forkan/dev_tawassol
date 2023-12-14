@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux'
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from "react-router-dom";
 import { alertActions } from '../../redux/slices/alertSlice'
 import { registerUser } from "../../redux/apiCall/authApiCall";
 
 function Register() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const auth = useSelector(state => state.auth)
 
   const [formData, setFormData] = useState({
     name: '',
@@ -32,6 +35,9 @@ function Register() {
       setTimeout(()=> dispatch(alertActions.removeAlert(error)), 3000)
     }    
     dispatch(registerUser(formData))
+    if (auth.user) {
+      navigate('/')
+    }
   }
   return (
     <section className="container">
