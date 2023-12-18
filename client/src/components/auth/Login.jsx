@@ -37,7 +37,6 @@ import { loginUser } from '../../redux/apiCall/authApiCall';
             name="email"
             value={email}
             onChange={e => onChange(e)}
-            required
           />
         </div>
         <div className="form-group">

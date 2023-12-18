@@ -1,18 +1,14 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React from "react";
+import { useSelector } from "react-redux";
 
 function Alert() {
-    const { alerts } = useSelector(state => state.alert)
-    // console.log(alerts)
+  const { alerts } = useSelector((state) => state.alert);
   return (
     <div className="alert-wraper">
-      {alerts.length > 0 && (
+      {alerts?.length > 0 && (
         <div className="container">
-          {alerts?.map((alert) => (
-            <div
-              key={alert.id}
-              className={`alert alert-${alert.type}`}
-            >
+          {alerts?.map((alert, index) => (
+            <div key={index} className={`alert alert-${alert.type}`}>
               {alert.msg}
             </div>
           ))}
@@ -22,4 +18,4 @@ function Alert() {
   );
 }
 
-export default Alert
+export default Alert;
