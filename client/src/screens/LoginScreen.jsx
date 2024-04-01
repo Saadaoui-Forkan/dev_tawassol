@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Input from "../components/utils/Input";
 import Button from "../components/utils/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/apiCalls/authApiCall";
 import { alertActions } from "../redux/slices/alertSlice";
@@ -12,6 +12,8 @@ function LoginScreen() {
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
 
+  const navigate = useNavigate()
+
   const dispatch = useDispatch()
   const { alerts } = useSelector((state) => state.alert);
 
@@ -20,6 +22,8 @@ function LoginScreen() {
 
     dispatch(loginUser({ email, password }));
     alerts.map((alert) => dispatch(alertActions.clearAlert(alert.id)));
+
+    navigate('/')
   };
 
   useEffect(() => {

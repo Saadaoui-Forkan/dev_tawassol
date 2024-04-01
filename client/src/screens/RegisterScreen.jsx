@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Input from "../components/utils/Input";
 import Button from "../components/utils/Button";
 import Message from "../components/utils/Message";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../redux/apiCalls/authApiCall";
 import { alertActions } from "../redux/slices/alertSlice";
@@ -13,6 +13,8 @@ function RegisterScreen() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [show, setShow] = useState(false);
+
+  const navigate = useNavigate()
 
   const dispatch = useDispatch();
   const { alerts } = useSelector((state) => state.alert);
@@ -25,6 +27,8 @@ function RegisterScreen() {
     }
     dispatch(registerUser({ name, email, password, confirmPassword }));
     alerts.map((alert) => dispatch(alertActions.clearAlert(alert.id)));
+
+    navigate('/')
   };
 
   useEffect(() => {
