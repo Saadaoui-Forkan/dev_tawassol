@@ -28,7 +28,9 @@ function RegisterScreen() {
     dispatch(registerUser({ name, email, password, confirmPassword }));
     alerts.map((alert) => dispatch(alertActions.clearAlert(alert.id)));
 
-    navigate('/')
+    if (alerts.length === 0) {
+      navigate('/')
+    }
   };
 
   useEffect(() => {

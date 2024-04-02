@@ -59,8 +59,8 @@ function HeaderRight() {
       <ul
         className={
           nav
-            ? "fixed md:hidden left-0 top-11 w-[60%] h-full bg-fuchsia-600 ease-in-out duration-500"
-            : "ease-in-out w-[60%] duration-500 fixed top-0 bottom-0 left-[-100%]"
+            ? `fixed md:hidden left-0 ${user ? 'top-[57px]' : 'top-11'} w-[60%] h-full bg-fuchsia-700 ease-in-out duration-500`
+            : `ease-in-out w-[60%] duration-500 fixed ${user ? 'top-[57px]' : 'top-11'} bottom-0 left-[-100%]`
         }
       >
         {/* Mobile Navigation Items */}

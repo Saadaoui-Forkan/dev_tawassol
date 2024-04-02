@@ -23,7 +23,9 @@ function LoginScreen() {
     dispatch(loginUser({ email, password }));
     alerts.map((alert) => dispatch(alertActions.clearAlert(alert.id)));
 
-    navigate('/')
+    if (alerts.length === 0) {
+      navigate('/')
+    }
   };
 
   useEffect(() => {
