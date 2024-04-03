@@ -12,7 +12,7 @@ function Header() {
       <Link to={"/"}>
         <Logo />
       </Link>
-      <div className="flex items-center justify-center">
+      <div className="relative flex items-center justify-center">
         <HeaderRight/>
         {user && <Avatar/>}
       </div>

@@ -22,11 +22,9 @@ function Avatar() {
   const DropdownMenu = () => {
     return (
       <div
-        className={
-          dropdown
-            ? `w-20 bg-slate-50 flex flex-col absolute top-14 right-2 duration-500 ease-in-out`
-            : `w-20 bg-slate-50 flex flex-col absolute top-14 right-[-100%] duration-500 ease-in-out`
-        }
+        className={`w-20 bg-slate-50 flex flex-col absolute top-12 ${
+          dropdown ? "right-1" : "right-[-150%]"
+        }`}
       >
         <div className="absolute right-2 top-[-7px] w-4 border-solid border-b-slate-50 border-b-8 border-x-transparent border-x-8 border-t-0"></div>
         <span className="text-slate-600 p-2 hover:bg-fuchsia-500 hover:text-slate-50 hover:font-bold duration-200">

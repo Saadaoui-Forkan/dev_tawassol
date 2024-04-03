@@ -12,8 +12,8 @@ export function loginUser(user) {
       localStorage.setItem("user", JSON.stringify(data));
     } catch (error) {
       if (error) {
-        const errors = error.response?.data.errors;
-        errors?.map((err) => {
+        const errors = error?.response?.data.errors;
+        errors?.forEach((err) => {
           dispatch(alertActions.createAlert(err.msg));
           dispatch(alertActions.clearAlert(err.id));
         });
@@ -33,8 +33,8 @@ export function registerUser(user) {
       dispatch(authActions.setCredentials(data));
       localStorage.setItem("user", JSON.stringify(data));
     } catch (error) {
-      const errors = error.response?.data.errors;
-      errors.map((err) => {
+      const errors = error?.response?.data.errors;
+      errors?.forEach((err) => {
         dispatch(alertActions.createAlert(err.msg));
         dispatch(alertActions.clearAlert(err.id));
       });
