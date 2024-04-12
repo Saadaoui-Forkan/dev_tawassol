@@ -8,7 +8,7 @@ function Avatar() {
   const [dropdown, setDropdown] = useState(false);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleDropdown = () => {
     setDropdown(!dropdown);
@@ -16,19 +16,25 @@ function Avatar() {
 
   const logout = () => {
     dispatch(logoutUser());
-    navigate('/login')
+    navigate("/login");
   };
 
   const DropdownMenu = () => {
     return (
       <div
-        className={`w-20 bg-slate-50 flex flex-col absolute top-12 ${
+        className={`w-26 bg-slate-50 flex flex-col absolute top-12 ${
           dropdown ? "right-1" : "right-[-150%]"
         }`}
       >
         <div className="absolute right-2 top-[-7px] w-4 border-solid border-b-slate-50 border-b-8 border-x-transparent border-x-8 border-t-0"></div>
-        <span className="text-slate-600 p-2 hover:bg-fuchsia-500 hover:text-slate-50 hover:font-bold duration-200">
-          Profile
+        <span
+          className="text-slate-600 p-2 hover:bg-fuchsia-500 hover:text-slate-50 hover:font-bold duration-200 cursor-pointer"
+          onClick={() => {
+            navigate("/dashboard");
+            setDropdown(false);
+          }}
+        >
+          Dashboard
         </span>
         <button
           type="button"

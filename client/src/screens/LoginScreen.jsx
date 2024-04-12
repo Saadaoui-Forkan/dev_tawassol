@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Input from "../components/utils/Input";
+import FormInput from "../components/utils/FormInput";
 import Button from "../components/utils/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/apiCalls/authApiCall";
 import { alertActions } from "../redux/slices/alertSlice";
 import Message from "../components/utils/Message";
+import Loader from "../components/utils/Loader";
 
 function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
-
-  const navigate = useNavigate()
 
   const dispatch = useDispatch()
   const { alerts } = useSelector((state) => state.alert);
@@ -21,11 +20,11 @@ function LoginScreen() {
     e.preventDefault();
 
     dispatch(loginUser({ email, password }));
-    alerts.map((alert) => dispatch(alertActions.clearAlert(alert.id)));
 
-    if (alerts.length === 0) {
-      navigate('/')
-    }
+    alerts.map((alert) => dispatch(alertActions.clearAlert(alert.id)));
+    setEmail('')
+    setPassword('')
+   
   };
 
   useEffect(() => {
@@ -37,20 +36,36 @@ function LoginScreen() {
     }
   }, [alerts]);
 
+  useEffect(() => {
+    if (alerts.length === 0) {
+      setTimeout(() => {
+        <Loader/>
+      }, 1000);
+    }
+  }, [alerts]);
+
   return (
-    <div className="flex flex-col items-center justify-center p-20 bg-fuchsia-50"> 
+    <div className="flex flex-col items-center justify-center p-20 bg-fuchsia-50">
       {alerts.length > 0 &&
-          show &&
-          alerts.map((alert, index) => (
-            <Message error key={index}>
-              {alert.message}
-            </Message>
-          ))}
-      <form className="bg-white shadow-2xl rounded-2xl p-6 w-10/12 sm:w-3/5 lg:w-1/3" onSubmit={submitHandler}>
+        show &&
+        alerts.map((alert, index) => (
+          <Message error key={index}>
+            {alert.message}
+          </Message>
+        ))}
+      {/* {
+        alerts.length === 0 && (setTimeout(() => {
+          <Loader/>
+        }, 1000))
+      } */}
+      <form
+        className="bg-white shadow-2xl rounded-2xl p-6 w-10/12 sm:w-3/5 lg:w-1/3"
+        onSubmit={submitHandler}
+      >
         <h2 className="font-roboto mb-5 text-2xl text-fuchsia-700 font-bold text-center">
           Login
         </h2>
-        <Input
+        <FormInput
           type="email"
           label="email"
           forLabel="input-email"
@@ -58,10 +73,10 @@ function LoginScreen() {
           onChange={(e) => setEmail(e.target.value)}
         />
         <div className="mt-[-15px] text-xs text-zinc-900">
-          This site uses Gravatar so if you want a profile image, use a
-          Gravatar email.
+          This site uses Gravatar so if you want a profile image, use a Gravatar
+          email.
         </div>
-        <Input
+        <FormInput
           type="password"
           label="password"
           forLabel="input-password"

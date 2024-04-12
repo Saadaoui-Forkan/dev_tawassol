@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Input from "../components/utils/Input";
+import FormInput from "../components/utils/FormInput";
 import Button from "../components/utils/Button";
 import Message from "../components/utils/Message";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../redux/apiCalls/authApiCall";
 import { alertActions } from "../redux/slices/alertSlice";
@@ -13,8 +13,6 @@ function RegisterScreen() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [show, setShow] = useState(false);
-
-  const navigate = useNavigate()
 
   const dispatch = useDispatch();
   const { alerts } = useSelector((state) => state.alert);
@@ -27,7 +25,10 @@ function RegisterScreen() {
     }
     dispatch(registerUser({ name, email, password, confirmPassword }));
     alerts.map((alert) => dispatch(alertActions.clearAlert(alert.id)));
-    navigate('/')
+    setEmail("");
+    setName("");
+    setPassword("");
+    setConfirmPassword("");
   };
 
   useEffect(() => {
@@ -41,13 +42,13 @@ function RegisterScreen() {
 
   return (
     <div className="flex flex-col items-center justify-center pt-20 pb-10 bg-fuchsia-50">
-    {alerts.length > 0 &&
-      show &&
-      alerts.map((alert, index) => (
-        <Message error key={index}>
-          {alert.message}
-        </Message>
-      ))}
+      {alerts.length > 0 &&
+        show &&
+        alerts.map((alert, index) => (
+          <Message error key={index}>
+            {alert.message}
+          </Message>
+        ))}
       <form
         className="bg-white shadow-2xl rounded-2xl p-6 w-10/12 sm:w-3/5 lg:w-1/3"
         onSubmit={submitHandler}
@@ -55,14 +56,14 @@ function RegisterScreen() {
         <h2 className="font-roboto mb-5 text-2xl text-fuchsia-700 font-bold text-center">
           Register
         </h2>
-        <Input
+        <FormInput
           type="text"
           label="name"
           forLabel="input-name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <Input
+        <FormInput
           type="email"
           label="email"
           forLabel="input-email"
@@ -73,14 +74,14 @@ function RegisterScreen() {
           This site uses Gravatar so if you want a profile image, use a Gravatar
           email.
         </div>
-        <Input
+        <FormInput
           type="password"
           label="password"
           forLabel="input-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Input
+        <FormInput
           type="password"
           label="Confirm Password"
           forLabel="input-confirmPassword"
