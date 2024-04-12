@@ -1,3 +1,4 @@
+import { AUTH_URL, REGISTER_URL } from "../../constants";
 import { alertActions } from "../slices/alertSlice";
 import { authActions } from "../slices/authSlice";
 import axios from "axios";
@@ -7,7 +8,7 @@ export function loginUser(user) {
   return async (dispatch, getState) => {
     //getState: get state from store
     try {
-      const { data } = await axios.post("http://localhost:5000/api/auth", user);
+      const { data } = await axios.post(AUTH_URL, user);
       dispatch(authActions.setCredentials(data));
       localStorage.setItem("user", JSON.stringify(data));
     } catch (error) {
@@ -27,7 +28,7 @@ export function registerUser(user) {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/users",
+        REGISTER_URL,
         user
       );
       dispatch(authActions.setCredentials(data));

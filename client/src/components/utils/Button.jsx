@@ -2,16 +2,12 @@ import React from "react";
 
 function Button({
   children,
-  type,
   lightBtn,
   dangerBtn,
   successBtn,
   secondaryBtn,
-  disabled,
-  handleClick,
 }) {
   let btn;
-
   lightBtn
     ? (btn = "bg-zinc-200 text-zinc-600 hover:bg-zinc-300")
     : dangerBtn
@@ -24,12 +20,8 @@ function Button({
 
   return (
     <button
-      className={`${btn} p-2 rounded-sm font-bold duration-200 text-sm lg:text-md ${
-        disabled ? "cursor-not-allowed" : ""
-      }`}
-      type={type}
-      onClick={handleClick}
-      aria-disabled={disabled}
+      className={`${btn} p-2 rounded-sm font-bold duration-200 text-sm lg:text-md`}
+      type="button"
     >
       {children}
     </button>

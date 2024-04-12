@@ -1,3 +1,5 @@
-export const removeDuplicates = (data) => {
-    return data.reduce((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], [])
-}
+export const PROFILE_URL = 'http://localhost:5000/api/profile';
+
+export const AUTH_URL = 'http://localhost:5000/api/auth';
+
+export const REGISTER_URL = 'http://localhost:5000/api/users';

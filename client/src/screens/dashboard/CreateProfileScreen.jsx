@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProfileInfo from "../../components/dashboard/ProfileInfo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/utils/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { createProfile } from "../../redux/apiCalls/profileApiCall";
 
 function CreateProfileScreen() {
   const [status, setStatus] = useState("");
@@ -16,8 +18,40 @@ function CreateProfileScreen() {
   const [instagram, setInstagram] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [youtube, setYoutube] = useState("");
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const { loading, isProfileCreated } = useSelector((state) => state.profile);
+
+  const addNewProfile = (e) => {
+    e.preventDefault();
+    dispatch(
+      createProfile({
+        status,
+        company,
+        website,
+        location,
+        skills,
+        githubUsername,
+        bio,
+        twitter,
+        facebook,
+        instagram,
+        linkedin,
+        youtube,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (isProfileCreated) {
+      navigate("/dashboard");
+    }
+  }, [navigate, isProfileCreated]);
+
   return (
-    <div className="w-full">
+    <div className="w-full mt-16">
       <ProfileInfo
         status={status}
         setStatus={setStatus}
@@ -46,7 +80,12 @@ function CreateProfileScreen() {
       />
 
       <div className="mx-6 mb-10">
-        <Button type="button">Send</Button>
+        <button
+          className="bg-fuchsia-600 text-fuchsia-50 hover:bg-fuchsia-800 p-2 rounded-sm font-bold duration-200 text-sm lg:text-md"
+          onClick={addNewProfile}
+        >
+          {loading ? "loading..." : "Create"}
+        </button>
         <Link to="/dashboard" className="mx-4">
           <Button lightBtn>Go Back</Button>
         </Link>
