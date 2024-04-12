@@ -3,6 +3,7 @@ import ProfileInput from '../../components/utils/ProfileInput'
 import Title from '../../components/utils/Title'
 import Button from '../../components/utils/Button'
 import { Link } from 'react-router-dom'
+import Textarea from '../../components/utils/Textarea'
 
 function AddExperienceScreen() {
   const [jobTitle, setJobTitle] = useState('')
@@ -61,8 +62,8 @@ function AddExperienceScreen() {
         id="To Date"
         type="date"
       />
-      <ProfileInput
-        label="Description"
+      <Textarea
+        label="Job Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         id="Desc"

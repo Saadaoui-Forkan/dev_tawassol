@@ -3,6 +3,7 @@ import Title from '../../components/utils/Title'
 import ProfileInput from '../../components/utils/ProfileInput'
 import Button from '../../components/utils/Button'
 import { Link } from 'react-router-dom'
+import Textarea from '../../components/utils/Textarea'
 
 function AddEducationScreen() {
   const [school, setSchool] = useState('')
@@ -61,8 +62,8 @@ function AddEducationScreen() {
         id="To Date"
         type="date"
       />
-      <ProfileInput
-        label="Description"
+      <Textarea
+        label="Program Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         id="Desc"
