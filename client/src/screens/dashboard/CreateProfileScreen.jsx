@@ -4,6 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/utils/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { createProfile } from "../../redux/apiCalls/profileApiCall";
+import { alertActions } from "../../redux/slices/alertSlice";
+import Message from "../../components/utils/Message";
+import Title from "../../components/utils/Title";
 
 function CreateProfileScreen() {
   const [status, setStatus] = useState("");
@@ -18,11 +21,13 @@ function CreateProfileScreen() {
   const [instagram, setInstagram] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [youtube, setYoutube] = useState("");
+  const [show, setShow] = useState(false);
 
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const { loading, isProfileCreated } = useSelector((state) => state.profile);
+  const { alerts } = useSelector((state) => state.alert);
 
   const addNewProfile = (e) => {
     e.preventDefault();
@@ -42,7 +47,18 @@ function CreateProfileScreen() {
         youtube,
       })
     );
+
+    alerts.map((alert) => dispatch(alertActions.clearAlert(alert.id)));
   };
+
+  useEffect(() => {
+    if (alerts.length > 0) {
+      setShow(true);
+      setTimeout(() => {
+        setShow(false);
+      }, 3000);
+    }
+  }, [alerts]);
 
   useEffect(() => {
     if (isProfileCreated) {
@@ -52,6 +68,17 @@ function CreateProfileScreen() {
 
   return (
     <div className="w-full mt-16">
+      <Title>Create Your Profile</Title>
+
+      {alerts.length > 0 &&
+        show &&
+        alerts.map((alert, index) => (
+          <Message error key={index}>
+            {alert.message}
+          </Message>
+        ))
+      }
+
       <ProfileInfo
         status={status}
         setStatus={setStatus}

@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/apiCalls/authApiCall";
 import { alertActions } from "../redux/slices/alertSlice";
 import Message from "../components/utils/Message";
-import Loader from "../components/utils/Loader";
 
 function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -36,14 +35,6 @@ function LoginScreen() {
     }
   }, [alerts]);
 
-  useEffect(() => {
-    if (alerts.length === 0) {
-      setTimeout(() => {
-        <Loader/>
-      }, 1000);
-    }
-  }, [alerts]);
-
   return (
     <div className="flex flex-col items-center justify-center p-20 bg-fuchsia-50">
       {alerts.length > 0 &&
@@ -53,11 +44,7 @@ function LoginScreen() {
             {alert.message}
           </Message>
         ))}
-      {/* {
-        alerts.length === 0 && (setTimeout(() => {
-          <Loader/>
-        }, 1000))
-      } */}
+        
       <form
         className="bg-white shadow-2xl rounded-2xl p-6 w-10/12 sm:w-3/5 lg:w-1/3"
         onSubmit={submitHandler}

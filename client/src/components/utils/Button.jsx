@@ -21,7 +21,7 @@ function Button({
   return (
     <button
       className={`${btn} p-2 rounded-sm font-bold duration-200 text-sm lg:text-md`}
-      type="button"
+      type="submit"
     >
       {children}
     </button>

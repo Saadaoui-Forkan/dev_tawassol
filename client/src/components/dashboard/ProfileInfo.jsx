@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import ProfileInput from "../utils/ProfileInput";
 import Button from "../utils/Button";
-import { Link } from "react-router-dom";
 
 function ProfileInfo(props) {
   const {
@@ -33,7 +32,8 @@ function ProfileInfo(props) {
 
   const [displayToggleInputs, setDisplayToggleInputs] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault()
     setDisplayToggleInputs(!displayToggleInputs);
   };
   return (
@@ -81,7 +81,7 @@ function ProfileInfo(props) {
         id="Bio"
       />
       <div className="ml-2 md:ml-10 lg:ml-20 flex items-center">
-        <Button type={"button"} lightBtn handleClick={handleClick}>
+        <Button lightBtn handleClick={handleClick}>
           Add social network links
         </Button>
         <h3 className="text-zinc-700 font-bold mx-2">Optional</h3>

@@ -5,10 +5,11 @@ import Button from "../../components/utils/Button";
 import { useSelector } from "react-redux";
 
 function DashboardScreen() {
-  const { profile } = useSelector((state) => state.profile);
+  const data = useSelector((state) => state.profile);
+  console.log(data)
   return (
     <div className="mt-16">
-      {profile.length === 0 ? (
+      {data.profile.length === 0 ? (
         <>
           <Title>Dashboard</Title>
           <div className="mx-4 mb-4 lg:mx-8">
