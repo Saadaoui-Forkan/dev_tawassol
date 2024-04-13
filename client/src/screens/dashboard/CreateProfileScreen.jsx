@@ -7,6 +7,7 @@ import { createProfile } from "../../redux/apiCalls/profileApiCall";
 import { alertActions } from "../../redux/slices/alertSlice";
 import Message from "../../components/utils/Message";
 import Title from "../../components/utils/Title";
+import { RotatingLines } from 'react-loader-spinner'
 
 function CreateProfileScreen() {
   const [status, setStatus] = useState("");
@@ -76,8 +77,7 @@ function CreateProfileScreen() {
           <Message error key={index}>
             {alert.message}
           </Message>
-        ))
-      }
+        ))}
 
       <ProfileInfo
         status={status}
@@ -111,7 +111,21 @@ function CreateProfileScreen() {
           className="bg-fuchsia-600 text-fuchsia-50 hover:bg-fuchsia-800 p-2 rounded-sm font-bold duration-200 text-sm lg:text-md"
           onClick={addNewProfile}
         >
-          {loading ? "loading..." : "Create"}
+          {loading ? (
+            <RotatingLines
+              visible={true}
+              height="25"
+              width="25"
+              strokeColor="white"
+              strokeWidth="5"
+              animationDuration="0.75"
+              ariaLabel="rotating-lines-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
+          ) : (
+            "Create"
+          )}
         </button>
         <Link to="/dashboard" className="mx-4">
           <Button lightBtn>Go Back</Button>
