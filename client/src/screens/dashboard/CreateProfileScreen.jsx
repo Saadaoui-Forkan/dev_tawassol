@@ -15,7 +15,7 @@ function CreateProfileScreen() {
   const [website, setWebsite] = useState("");
   const [location, setLocation] = useState("");
   const [skills, setSkills] = useState("");
-  const [githubUsername, setGithubUsername] = useState("");
+  const [githubusername, setGithubUsername] = useState("");
   const [bio, setBio] = useState("");
   const [twitter, setTwitter] = useState("");
   const [facebook, setFacebook] = useState("");
@@ -39,7 +39,7 @@ function CreateProfileScreen() {
         website,
         location,
         skills,
-        githubUsername,
+        githubusername,
         bio,
         twitter,
         facebook,
@@ -90,7 +90,7 @@ function CreateProfileScreen() {
         setLocation={setLocation}
         skills={skills}
         setSkills={setSkills}
-        githubUsername={githubUsername}
+        githubUsername={githubusername}
         setGithubUsername={setGithubUsername}
         bio={bio}
         setBio={setBio}

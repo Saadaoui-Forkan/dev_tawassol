@@ -13,6 +13,8 @@ import AddExperienceScreen from "./screens/dashboard/AddExperienceScreen";
 
 function App() {
   const { user } = useSelector((state) => state.auth);
+  const { profile } = useSelector((state) => state.profile);
+
   return (
     <BrowserRouter>
       <Header />
@@ -28,11 +30,46 @@ function App() {
             element={!user ? <RegisterScreen /> : <Navigate to="/" />}
           />
           <Route path="dashboard">
-            <Route index element={user ? <DashboardScreen /> : <Navigate to='/'/>}/>
-            <Route path="create-profile" element={user ? <CreateProfileScreen/> : <Navigate to="/"/>} />
-            <Route path="edit-profile" element={user ? <EditProfileScreen/> : <Navigate to="/"/>} />
-            <Route path="add-education" element={user ? <AddEducationScreen/> : <Navigate to="/"/>} />
-            <Route path="add-experience" element={user ? <AddExperienceScreen/> : <Navigate to="/"/>} />
+            <Route
+              index
+              element={user ? <DashboardScreen /> : <Navigate to="/" />}
+            />
+            <Route
+              path="create-profile"
+              element={
+                user ? <CreateProfileScreen /> : <Navigate to="/dashboard" />
+              }
+            />
+            <Route
+              path="edit-profile"
+              element={
+                profile.length !== 0 ? (
+                  <EditProfileScreen />
+                ) : (
+                  <Navigate to="/dashboard" />
+                )
+              }
+            />
+            <Route
+              path="add-education"
+              element={
+                profile.length !== 0 ? (
+                  <AddEducationScreen />
+                ) : (
+                  <Navigate to="/dashboard" />
+                )
+              }
+            />
+            <Route
+              path="add-experience"
+              element={
+                profile.length !== 0 ? (
+                  <AddExperienceScreen />
+                ) : (
+                  <Navigate to="/dashboard" />
+                )
+              }
+            />
           </Route>
         </Routes>
       </main>

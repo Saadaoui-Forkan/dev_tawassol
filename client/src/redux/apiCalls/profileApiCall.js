@@ -20,7 +20,13 @@ export function createProfile(newProfile) {
               2000
             );
         } catch (error) {
-            const errors = error.response.data.errors
+            const err = error.response?.data.msg
+            if (err) {
+                dispatch(alertActions.createAlert(err));
+                dispatch(alertActions.clearAlert(err));
+            }
+
+            const errors = error.response.data.errors 
             errors?.forEach((err) => {
                 dispatch(alertActions.createAlert(err.msg));
                 dispatch(alertActions.clearAlert(err.id));

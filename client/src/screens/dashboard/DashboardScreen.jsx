@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 function DashboardScreen() {
   const data = useSelector((state) => state.profile);
-  console.log(data)
+  
   return (
     <div className="mt-16">
       {data.profile.length === 0 ? (
