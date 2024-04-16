@@ -33,7 +33,7 @@ function EditProfileScreen() {
 
   useEffect(() => {
     setStatus(profile.status || '')
-    setCompany(profile.status || '')
+    setCompany(profile.company || '')
     setWebsite(profile.website || '')
     setSkills(profile.skills || '')
     setLocation(profile.location || '')

@@ -17,7 +17,7 @@ router.get('/me',protect ,async(req, res) => {
         .populate('user', ['name', 'avatar']) 
 
         if (!profile) {
-            res.status(400).json({ msg: 'There is no profile for this user' })
+            return res.status(400).json({ msg: 'There is no profile for this user' })
         }
 
         res.json(profile)
@@ -67,7 +67,7 @@ router.post('/', [protect,
         if(bio) profileFields.bio = bio
         if(status) profileFields.status = status
         if(githubusername) profileFields.githubusername = githubusername
-        if (skills) {
+        if (skills && typeof skills === 'string') {
             profileFields.skills = skills.split(',').map(skill => skill.trim())
         }
 

@@ -5,8 +5,7 @@ import axios from "axios";
 
 // Login User
 export function loginUser(user) {
-  return async (dispatch, getState) => {
-    //getState: get state from store
+  return async (dispatch) => {
     try {
       const { data } = await axios.post(AUTH_URL, user);
       dispatch(authActions.setCredentials(data));
@@ -27,10 +26,7 @@ export function loginUser(user) {
 export function registerUser(user) {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(
-        REGISTER_URL,
-        user
-      );
+      const { data } = await axios.post(REGISTER_URL, user);
       dispatch(authActions.setCredentials(data));
       localStorage.setItem("user", JSON.stringify(data));
     } catch (error) {

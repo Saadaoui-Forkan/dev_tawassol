@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Title from "../../components/utils/Title";
 import { Link } from "react-router-dom";
 import Button from "../../components/utils/Button";
-import { useSelector } from "react-redux";
+import Loader from "../../components/utils/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { getMyProfile } from "../../redux/apiCalls/profileApiCall";
 
 function DashboardScreen() {
-  const data = useSelector((state) => state.profile);
-  
+  const dispatch = useDispatch();
+
+  const { profile, loading } = useSelector((state) => state.profile);
+
+  useEffect(() => {
+    // if (profile.length !== 0) {
+      dispatch(getMyProfile());
+    // }
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div className="mt-16">
-      {data.profile.length === 0 ? (
+      {profile.length === 0 ? (
         <>
           <Title>Dashboard</Title>
           <div className="mx-4 mb-4 lg:mx-8">

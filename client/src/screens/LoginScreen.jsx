@@ -6,14 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/apiCalls/authApiCall";
 import { alertActions } from "../redux/slices/alertSlice";
 import Message from "../components/utils/Message";
+import Loader from "../components/utils/Loader";
 
 function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { alerts } = useSelector((state) => state.alert);
+  const { loading } = useSelector((state) => state.auth);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -21,9 +23,8 @@ function LoginScreen() {
     dispatch(loginUser({ email, password }));
 
     alerts.map((alert) => dispatch(alertActions.clearAlert(alert.id)));
-    setEmail('')
-    setPassword('')
-   
+    setEmail("");
+    setPassword("");
   };
 
   useEffect(() => {
@@ -35,6 +36,10 @@ function LoginScreen() {
     }
   }, [alerts]);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div className="flex flex-col items-center justify-center p-20 bg-fuchsia-50">
       {alerts.length > 0 &&
@@ -44,7 +49,7 @@ function LoginScreen() {
             {alert.message}
           </Message>
         ))}
-        
+
       <form
         className="bg-white shadow-2xl rounded-2xl p-6 w-10/12 sm:w-3/5 lg:w-1/3"
         onSubmit={submitHandler}

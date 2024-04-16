@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../redux/apiCalls/authApiCall";
 import { alertActions } from "../redux/slices/alertSlice";
+import Loader from "../components/utils/Loader";
 
 function RegisterScreen() {
   const [name, setName] = useState("");
@@ -16,6 +17,7 @@ function RegisterScreen() {
 
   const dispatch = useDispatch();
   const { alerts } = useSelector((state) => state.alert);
+  const { loading } = useSelector((state) => state.auth);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -39,6 +41,10 @@ function RegisterScreen() {
       }, 3000);
     }
   }, [alerts]);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center pt-20 pb-10 bg-fuchsia-50">

@@ -24,6 +24,9 @@ const profileSlice = createSlice({
     clearIsProfileCreated(state) {
         state.isProfileCreated = false;
     },
+    addExperience(state, action) {
+      state.profile.experience = action.payload
+    }
   },
 });
 

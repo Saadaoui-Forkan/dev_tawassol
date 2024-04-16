@@ -5,6 +5,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: localStorage.getItem("user") ? userInfo : null,
+    loading: false
   },
   reducers: {
     setCredentials(state, action) {
@@ -13,6 +14,12 @@ const authSlice = createSlice({
     logout(state) {
       state.user = null;
     },
+    setLoading(state) {
+      state.loading = true
+    },
+    clearLoading(state) {
+      state.loading = false
+    }
   },
 });
 
