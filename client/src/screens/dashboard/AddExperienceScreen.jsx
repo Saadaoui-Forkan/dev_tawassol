@@ -7,6 +7,8 @@ import Textarea from "../../components/utils/Textarea";
 import { useDispatch, useSelector } from "react-redux";
 import { addAnExperience } from "../../redux/apiCalls/profileApiCall";
 import { alertActions } from "../../redux/slices/alertSlice";
+import Message from "../../components/utils/Message";
+import { RotatingLines } from 'react-loader-spinner';
 
 function AddExperienceScreen() {
   const dispatch = useDispatch();
@@ -23,14 +25,14 @@ function AddExperienceScreen() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [description, setDescription] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
+  const [current, setCurrent] = useState(false);
   const checkHandler = () => {
-    setIsChecked(!isChecked);
+    setCurrent(!current);
   };
 
   const handleAddAnExperience = () => {
     dispatch(
-      addAnExperience({ title, company, location, from, to, description })
+      addAnExperience({ title, company, location, from, to, current, description })
     );
 
     alerts.map((alert) => dispatch(alertActions.clearAlert(alert.id)));
@@ -57,6 +59,15 @@ function AddExperienceScreen() {
         Add any developer/programming positions that you can have had in the
         past.
       </p>
+
+      {alerts.length > 0 &&
+        show &&
+        alerts.map((alert, index) => (
+          <Message error key={index}>
+            {alert.message}
+          </Message>
+        ))}
+
       <ProfileInput
         label="Job Title (Required)"
         value={title}
@@ -87,7 +98,7 @@ function AddExperienceScreen() {
           type="checkbox"
           id="checkbox"
           className="mr-2"
-          checked={isChecked}
+          checked={current}
           onChange={checkHandler}
         />
         <label htmlFor="checkbox">Current Job</label>
@@ -107,9 +118,23 @@ function AddExperienceScreen() {
       />
 
       <div className="mx-6 mb-10">
-        <button type="button" onClick={handleAddAnExperience}>
-          Send
-        </button>
+        <Button type="button" onClick={handleAddAnExperience}>
+        {loading ? (
+            <RotatingLines
+              visible={true}
+              height="25"
+              width="25"
+              strokeColor="white"
+              strokeWidth="5"
+              animationDuration="0.75"
+              ariaLabel="rotating-lines-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
+          ) : (
+            "Send"
+          )}
+        </Button>
         <Link to="/dashboard" className="mx-4">
           <Button lightBtn>Go Back</Button>
         </Link>

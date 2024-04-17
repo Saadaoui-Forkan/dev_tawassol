@@ -91,3 +91,35 @@ export function addAnExperience(newExperience) {
         }
     }
 }
+
+// Add Education
+export function addEducation(newEducation) {
+    return async(dispatch, getState) => {
+        try {
+            dispatch(profileActions.setLoading())
+            await axios.put(`${PROFILE_URL}/education`, newEducation, {
+                headers: {
+                    'x-auth-token': getState().auth.user.token
+                }
+            })
+            dispatch(profileActions.setIsProfileCreated())
+            setTimeout(
+              () => dispatch(profileActions.clearIsProfileCreated()),
+              2000
+            );
+        } catch (error) {
+            const err = error.response?.data.msg
+            if (err) {
+                dispatch(alertActions.createAlert(err));
+                dispatch(alertActions.clearAlert(err));
+            }
+
+            const errors = error.response.data.errors 
+            errors?.forEach((err) => {
+                dispatch(alertActions.createAlert(err.msg));
+                dispatch(alertActions.clearAlert(err.id));
+            });
+            dispatch(profileActions.clearLoading())
+        }
+    }
+}

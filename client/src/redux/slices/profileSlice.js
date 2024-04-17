@@ -26,7 +26,10 @@ const profileSlice = createSlice({
     },
     addExperience(state, action) {
       state.profile.experience = action.payload
-    }
+    },
+    addEducation(state, action) {
+      state.profile.education = action.payload
+    },
   },
 });
 
