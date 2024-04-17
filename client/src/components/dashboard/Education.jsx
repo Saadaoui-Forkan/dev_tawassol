@@ -1,10 +1,33 @@
 import React from "react";
 import Button from "../utils/Button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import { deleteEducation } from "../../redux/apiCalls/profileApiCall";
+import swal from "sweetalert";
 
 function Education() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const { profile } = useSelector((state) => state.profile);
+
+  const handleRemoveEducation = (id) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this education!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((isOk) => {
+      if (isOk) {
+        dispatch(deleteEducation(id))
+        navigate(`/dashboard`)
+      }else {
+        swal("something went wrong")
+      }
+    });
+  }
   
   return (
     <div>
@@ -74,7 +97,7 @@ function Education() {
                             : `${educ.from} - ${educ.to}`}
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          <Button dangerBtn>Delete</Button>
+                          <Button dangerBtn type={'button'} onClick={()=>handleRemoveEducation(educ._id)}>Delete</Button>
                         </td>
                       </tr>
                     ))}

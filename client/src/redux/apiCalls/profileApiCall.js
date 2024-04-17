@@ -125,7 +125,7 @@ export function addEducation(newEducation) {
 }
 
 // Remove An Experience
-export function deleteEducation(expId) {
+export function deleteExperience(expId) {
     return async(dispatch, getState) => {
         try {
             
@@ -137,18 +137,35 @@ export function deleteEducation(expId) {
             dispatch(profileActions.removeExperience(data.expId))
             console.log(data)
         } catch (error) {
-            // const err = error.response?.data.msg
-            // if (err) {
-            //     dispatch(alertActions.createAlert(err));
-            //     dispatch(alertActions.clearAlert(err));
-            // }
+            const errors = error.response.data.errors 
+            errors?.forEach((err) => {
+                dispatch(alertActions.createAlert(err.msg));
+                dispatch(alertActions.clearAlert(err.id));
+            });
+            dispatch(profileActions.clearLoading())
+            console.log(error)
+        }
+    }
+}
 
-            // const errors = error.response.data.errors 
-            // errors?.forEach((err) => {
-            //     dispatch(alertActions.createAlert(err.msg));
-            //     dispatch(alertActions.clearAlert(err.id));
-            // });
-            // dispatch(profileActions.clearLoading())
+// Remove An Education
+export function deleteEducation(educId) {
+    return async(dispatch, getState) => {
+        try {
+            
+            const {data} = await axios.delete(`${PROFILE_URL}/education/${educId}` , {
+                headers: {
+                    'x-auth-token': getState().auth.user.token
+                }
+            })
+            dispatch(profileActions.removeExperience(data.educId))
+        } catch (error) {
+            const errors = error.response.data.errors 
+            errors?.forEach((err) => {
+                dispatch(alertActions.createAlert(err.msg));
+                dispatch(alertActions.clearAlert(err.id));
+            });
+            dispatch(profileActions.clearLoading())
             console.log(error)
         }
     }

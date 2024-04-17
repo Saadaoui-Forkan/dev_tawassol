@@ -35,6 +35,11 @@ const profileSlice = createSlice({
     addEducation(state, action) {
       state.profile.education = action.payload;
     },
+    removeEducation(state, action) {
+      state.profile.education = state.profile.education.filter(
+        (el) => el._id !== action.payload
+      );
+    },
   },
 });
 
