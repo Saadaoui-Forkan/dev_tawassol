@@ -39,11 +39,11 @@ function EditProfileScreen() {
     setLocation(profile.location || '')
     setGithubUsername(profile.githubusername || '')
     setBio(profile.bio || '')
-    setLinkedin(profile.linkedin || '')
-    setFacebook(profile.facebook || '')
-    setYoutube(profile.youtube || '')
-    setInstagram(profile.instagram || '')
-    setTwitter(profile.twitter || '')
+    setLinkedin(profile.social.linkedin || '')
+    setFacebook(profile.social.facebook || '')
+    setYoutube(profile.social.youtube || '')
+    setInstagram(profile.social.instagram || '')
+    setTwitter(profile.social.twitter || '')
   }, [profile])
 
   const updateProfile = (e) => {
@@ -125,8 +125,7 @@ function EditProfileScreen() {
       />
 
       <div className="mx-6 mb-10">
-        <button
-          className="bg-fuchsia-600 text-fuchsia-50 hover:bg-fuchsia-800 p-2 rounded-sm font-bold duration-200 text-sm lg:text-md"
+        <Button
           type="button"
           onClick={updateProfile}
         >
@@ -145,7 +144,7 @@ function EditProfileScreen() {
           ) : (
             "Update"
           )}
-        </button>
+        </Button>
         <Link to="/dashboard" className="mx-4">
           <Button lightBtn>Go Back</Button>
         </Link>

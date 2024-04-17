@@ -6,6 +6,9 @@ function Button({
   dangerBtn,
   successBtn,
   secondaryBtn,
+  type,
+  onClick,
+  onSubmit
 }) {
   let btn;
   lightBtn
@@ -21,7 +24,9 @@ function Button({
   return (
     <button
       className={`${btn} p-2 rounded-sm font-bold duration-200 text-sm lg:text-md`}
-      type="submit"
+      type={type}
+      onSubmit={onSubmit}
+      onClick={onClick}
     >
       {children}
     </button>

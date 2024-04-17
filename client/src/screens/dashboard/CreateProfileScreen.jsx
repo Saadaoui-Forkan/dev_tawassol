@@ -107,9 +107,9 @@ function CreateProfileScreen() {
       />
 
       <div className="mx-6 mb-10">
-        <button
-          className="bg-fuchsia-600 text-fuchsia-50 hover:bg-fuchsia-800 p-2 rounded-sm font-bold duration-200 text-sm lg:text-md"
+        <Button
           onClick={addNewProfile}
+          type={"button"}
         >
           {loading ? (
             <RotatingLines
@@ -126,7 +126,7 @@ function CreateProfileScreen() {
           ) : (
             "Create"
           )}
-        </button>
+        </Button>
         <Link to="/dashboard" className="mx-4">
           <Button lightBtn>Go Back</Button>
         </Link>

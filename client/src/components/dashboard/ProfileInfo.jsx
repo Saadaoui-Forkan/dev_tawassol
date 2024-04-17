@@ -81,7 +81,7 @@ function ProfileInfo(props) {
         id="Bio"
       />
       <div className="ml-2 md:ml-10 lg:ml-20 flex items-center">
-        <Button lightBtn handleClick={handleClick}>
+        <Button lightBtn type={"button"} onClick={handleClick}>
           Add social network links
         </Button>
         <h3 className="text-zinc-700 font-bold mx-2">Optional</h3>

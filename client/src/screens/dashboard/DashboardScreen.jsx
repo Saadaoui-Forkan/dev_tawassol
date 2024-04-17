@@ -12,10 +12,8 @@ function DashboardScreen() {
   const { profile, loading } = useSelector((state) => state.profile);
 
   useEffect(() => {
-    // if (profile.length !== 0) {
-      dispatch(getMyProfile());
-    // }
-  }, []);
+    dispatch(getMyProfile());
+  }, [dispatch]);
 
   if (loading) {
     return <Loader />;
