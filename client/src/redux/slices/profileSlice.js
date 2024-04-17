@@ -4,31 +4,36 @@ const profileSlice = createSlice({
   name: "profile",
   initialState: {
     profile: [],
-    loading: false, 
+    loading: false,
     isProfileCreated: false,
   },
   reducers: {
     setProfile(state, action) {
-        state.profile = action.payload
+      state.profile = action.payload;
     },
     setLoading(state) {
-        state.loading = true
+      state.loading = true;
     },
     clearLoading(state) {
-        state.loading = false
+      state.loading = false;
     },
     setIsProfileCreated(state) {
-        state.isProfileCreated = true;
-        state.loading = false
+      state.isProfileCreated = true;
+      state.loading = false;
     },
     clearIsProfileCreated(state) {
-        state.isProfileCreated = false;
+      state.isProfileCreated = false;
     },
     addExperience(state, action) {
-      state.profile.experience = action.payload
+      state.profile.experience = action.payload;
+    },
+    removeExperience(state, action) {
+      state.profile.experience = state.profile.experience.filter(
+        (el) => el._id !== action.payload
+      );
     },
     addEducation(state, action) {
-      state.profile.education = action.payload
+      state.profile.education = action.payload;
     },
   },
 });

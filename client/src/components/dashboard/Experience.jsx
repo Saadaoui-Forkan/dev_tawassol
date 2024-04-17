@@ -5,6 +5,10 @@ import moment from "moment";
 
 function Experience() {
   const { profile } = useSelector((state) => state.profile);
+
+  const handleRemoveExperience = (id) => {
+    console.log(id)
+  }
   return (
     <div>
       <h2 className="mx-4 mt-6 p-4 font-bold border-b-2 border-zinc-600 text-zinc-600">
@@ -75,7 +79,7 @@ function Experience() {
                               )} - ${moment(exp.to).format("DD MMM YYYY")}`}
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          <Button dangerBtn>Delete</Button>
+                          <Button dangerBtn type={'button'} onClick={()=>handleRemoveExperience()}>Delete</Button>
                         </td>
                       </tr>
                     ))}
