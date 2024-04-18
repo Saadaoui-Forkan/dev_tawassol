@@ -2,40 +2,26 @@ import React from "react";
 import Button from "../utils/Button";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
 import { deleteEducation } from "../../redux/apiCalls/profileApiCall";
-import swal from "sweetalert";
+import { profileActions } from "../../redux/slices/profileSlice";
 
 function Education() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
 
   const { profile } = useSelector((state) => state.profile);
 
   const handleRemoveEducation = (id) => {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this education!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((isOk) => {
-      if (isOk) {
-        dispatch(deleteEducation(id))
-        navigate(`/dashboard`)
-      }else {
-        swal("something went wrong")
-      }
-    });
-  }
-  
+    dispatch(deleteEducation(id));
+    dispatch(profileActions.removeEducation(id))
+  };
+
   return (
     <div>
       <h2 className="mx-4 mt-6 p-4 font-bold border-b-2 border-zinc-600 text-zinc-600">
         Education Credentials
       </h2>
       {/* Education Table */}
-      {profile.education.length === 0 ? (
+      {profile?.education?.length === 0 ? (
         <h4 className="text-md text-titillium mx-4 mt-6 p-4 border-b-2 border-zinc-600 text-zinc-600">
           Please press the button above to add an education.
         </h4>
@@ -78,7 +64,7 @@ function Education() {
                     </tr>
                   </thead>
                   <tbody>
-                    {profile.education.map((educ, index) => (
+                    {profile?.education.map((educ, index) => (
                       <tr key={index} className="bg-gray-100 border-b">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           {index + 1}
@@ -94,10 +80,18 @@ function Education() {
                             ? `${moment(educ.from).format(
                                 "DD MMM YYYY"
                               )} - present`
-                            : `${educ.from} - ${educ.to}`}
+                            : `${moment(educ.from).format(
+                                "DD MMM YYYY"
+                              )} - ${moment(educ.to).format("DD MMM YYYY")}`}
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          <Button dangerBtn type={'button'} onClick={()=>handleRemoveEducation(educ._id)}>Delete</Button>
+                          <Button
+                            dangerBtn
+                            type={"button"}
+                            onClick={() => handleRemoveEducation(educ._id)}
+                          >
+                            Delete
+                          </Button>
                         </td>
                       </tr>
                     ))}

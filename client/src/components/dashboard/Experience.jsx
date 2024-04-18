@@ -3,38 +3,25 @@ import Button from "../utils/Button";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { deleteExperience } from "../../redux/apiCalls/profileApiCall";
-import { useNavigate } from "react-router-dom";
-import swal from "sweetalert";
+import { profileActions } from '../../redux/slices/profileSlice'
 
 function Experience() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const { profile } = useSelector((state) => state.profile);
 
   const handleRemoveExperience = (id) => {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this experience!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((isOk) => {
-      if (isOk) {
-        dispatch(deleteExperience(id))
-        navigate(`/dashboard`)
-      }else {
-        swal("something went wrong")
-      }
-    });
+    dispatch(deleteExperience(id))
+    dispatch(profileActions.removeExperience(id))
   }
+
   return (
     <div>
       <h2 className="mx-4 mt-6 p-4 font-bold border-b-2 border-zinc-600 text-zinc-600">
         Experience Credentials
       </h2>
       {/* Experience Table */}
-      {profile.experience.length === 0 ? (
+      {profile?.experience?.length === 0 ? (
         <h4 className="text-md text-titillium mx-4 mt-6 p-4 border-b-2 border-zinc-600 text-zinc-600">
           Please press the button above to add an experience.
         </h4>
@@ -77,7 +64,7 @@ function Experience() {
                     </tr>
                   </thead>
                   <tbody>
-                    {profile.experience.map((exp, index) => (
+                    {profile?.experience.map((exp, index) => (
                       <tr key={index} className="bg-gray-100 border-b">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           {index + 1}

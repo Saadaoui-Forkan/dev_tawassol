@@ -43,7 +43,7 @@ function App() {
             <Route
               path="edit-profile"
               element={
-                profile.length !== 0 ? (
+                profile?.length !== 0 ? (
                   <EditProfileScreen />
                 ) : (
                   <Navigate to="/dashboard" />
@@ -53,7 +53,7 @@ function App() {
             <Route
               path="add-education"
               element={
-                profile.length !== 0 ? (
+                profile?.length !== 0 ? (
                   <AddEducationScreen />
                 ) : (
                   <Navigate to="/dashboard" />
@@ -63,7 +63,7 @@ function App() {
             <Route
               path="add-experience"
               element={
-                profile.length !== 0 ? (
+                profile?.length !== 0 ? (
                   <AddExperienceScreen />
                 ) : (
                   <Navigate to="/dashboard" />

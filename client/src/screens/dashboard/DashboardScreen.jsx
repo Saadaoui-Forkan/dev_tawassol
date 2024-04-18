@@ -23,7 +23,7 @@ function DashboardScreen() {
 
   return (
     <div className="mt-16">
-      {profile.length === 0 ? (
+      {profile?.length === 0 ? (
         <>
           <Title>Dashboard</Title>
           <div className="mx-4 mb-4 lg:mx-8">
@@ -39,7 +39,7 @@ function DashboardScreen() {
         <>
           <Title>Dashboard</Title>
           <p className="text-lg text-zinc-800 font-bold my-4 mx-4 lg:mx-8">
-            Welcome {profile.user.name}
+            Welcome {profile?.user?.name}
           </p>
           <div className="flex">
             <div className="mx-2">
