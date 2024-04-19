@@ -68,6 +68,9 @@ function ProfileInfo(props) {
         onChange={(e) => setSkills(e.target.value)}
         id="Skills"
       />
+      <p className="text-fuchsia-800 text-[15px] ml-6 translate-y-[-20px]">
+        Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
+      </p>
       <ProfileInput
         label="GithubUsername"
         value={githubUsername}

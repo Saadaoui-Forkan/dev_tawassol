@@ -10,16 +10,10 @@ function DevelopersScreen() {
 
     const {profile} = useSelector(state => state.profile)
 
-
     useEffect(()=>{
         dispatch(getProfiles())
     }, [dispatch])
 
-    const [data, setData] = useState([])
-    useEffect(()=>{
-      setData([profile])
-    }, [profile])
-    console.log(data)
   return (
     <div className='mt-16'>
       <Title>Developers</Title>
@@ -28,7 +22,7 @@ function DevelopersScreen() {
       </p>
       <div className="developers">
         {
-          data[0]?.map((el, index) => (
+          Array.isArray(profile) && profile.map((el, index) => (
             <div className="bg-slate-100 my-2 mx-4 border border-slate-300 rounded-sm flex
             flex-col sm:flex-row justify-between items-center lex-wrap" key={index}>
               <div className="flex flex-col sm:flex-row items-center">
@@ -45,7 +39,7 @@ function DevelopersScreen() {
                 </div>
               </div>
               <ul className="text-fuchsia-800 mr-4 my-4 sm:my-auto">
-              {el?.skills.slice(0, 4)?.map((skill, index) => (
+              {el?.skills?.slice(0, 4)?.map((skill, index) => (
                 <li key={index} className='text-primary'>
                   <i className='fas fa-check'/> {skill}
                 </li>
