@@ -39,11 +39,11 @@ function EditProfileScreen() {
     setLocation(profile.location || '')
     setGithubUsername(profile.githubusername || '')
     setBio(profile.bio || '')
-    setLinkedin(profile.social.linkedin || '')
-    setFacebook(profile.social.facebook || '')
-    setYoutube(profile.social.youtube || '')
-    setInstagram(profile.social.instagram || '')
-    setTwitter(profile.social.twitter || '')
+    setLinkedin(profile?.social?.linkedin || '')
+    setFacebook(profile?.social?.facebook || '')
+    setYoutube(profile?.social?.youtube || '')
+    setInstagram(profile?.social?.instagram || '')
+    setTwitter(profile?.social?.twitter || '')
   }, [profile])
 
   const updateProfile = (e) => {
