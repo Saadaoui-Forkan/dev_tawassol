@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import avatar from "../../img/avatar.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/apiCalls/authApiCall";
 import { useNavigate } from "react-router-dom";
 
 function Avatar() {
-  const [dropdown, setDropdown] = useState(false);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  let profilePhoto = null;
+
+  const {user} = useSelector(state => state.auth)
+  
+  user ? profilePhoto = user?.avatar : profilePhoto = avatar
+
+  const [dropdown, setDropdown] = useState(false);
 
   const handleDropdown = () => {
     setDropdown(!dropdown);
@@ -50,7 +56,7 @@ function Avatar() {
     <>
       <div className="w-10 h-10">
         <img
-          src={avatar}
+          src={profilePhoto}
           alt={avatar}
           className="h-full w-full rounded-full hover:cursor-pointer"
           onClick={handleDropdown}

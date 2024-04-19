@@ -10,6 +10,7 @@ import CreateProfileScreen from "./screens/dashboard/CreateProfileScreen";
 import EditProfileScreen from "./screens/dashboard/EditProfileScreen";
 import AddEducationScreen from "./screens/dashboard/AddEducationScreen";
 import AddExperienceScreen from "./screens/dashboard/AddExperienceScreen";
+import DevelopersScreen from "./screens/DevelopersScreen";
 
 function App() {
   const { user } = useSelector((state) => state.auth);
@@ -71,6 +72,7 @@ function App() {
               }
             />
           </Route>
+          <Route path="/developers" element={<DevelopersScreen/>}/>
         </Routes>
       </main>
 

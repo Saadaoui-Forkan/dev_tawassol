@@ -64,7 +64,7 @@ function Education() {
                     </tr>
                   </thead>
                   <tbody>
-                    {profile?.education.map((educ, index) => (
+                    {profile?.education?.map((educ, index) => (
                       <tr key={index} className="bg-gray-100 border-b">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           {index + 1}

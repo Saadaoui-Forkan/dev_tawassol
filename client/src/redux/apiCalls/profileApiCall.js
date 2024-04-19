@@ -3,7 +3,7 @@ import { PROFILE_URL } from "../../constants";
 import { profileActions } from "../slices/profileSlice";
 import { alertActions } from "../slices/alertSlice";
 
-// Get Profiles
+// Get My Profile
 export function getMyProfile() {
   return async (dispatch, getState) => {
     try {
@@ -155,6 +155,26 @@ export function deleteEducation(educId) {
       );
       dispatch(profileActions.removeEducation(data));
       // dispatch(profileActions.setProfile())
+    } catch (error) {
+      const errors = error.response.data.errors;
+      errors?.forEach((err) => {
+        dispatch(alertActions.createAlert(err.msg));
+        dispatch(alertActions.clearAlert(err.id));
+      });
+      dispatch(profileActions.clearLoading());
+      console.log(error);
+    }
+  };
+}
+
+// Get All Profiles
+export function getProfiles() {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(
+        `${PROFILE_URL}`
+      );
+      dispatch(profileActions.setProfile(data))
     } catch (error) {
       const errors = error.response.data.errors;
       errors?.forEach((err) => {
