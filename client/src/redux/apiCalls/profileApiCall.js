@@ -171,10 +171,12 @@ export function deleteEducation(educId) {
 export function getProfiles() {
   return async (dispatch) => {
     try {
+      dispatch(profileActions.setLoading());
       const { data } = await axios.get(
         `${PROFILE_URL}`
       );
       dispatch(profileActions.setProfile(data))
+      dispatch(profileActions.clearLoading());
     } catch (error) {
       const errors = error.response.data.errors;
       errors?.forEach((err) => {
@@ -182,7 +184,27 @@ export function getProfiles() {
         dispatch(alertActions.clearAlert(err.id));
       });
       dispatch(profileActions.clearLoading());
-      console.log(error);
+    }
+  };
+}
+
+// Get Single Profile
+export function getSingleProfile(id) {
+  return async (dispatch) => {
+    try {
+      dispatch(profileActions.setLoading());
+      const { data } = await axios.get(
+        `${PROFILE_URL}/user/${id}`
+      );
+      dispatch(profileActions.setProfile(data))
+      dispatch(profileActions.clearLoading());
+    } catch (error) {
+      const errors = error.response?.data.errors;
+      errors?.forEach((err) => {
+        dispatch(alertActions.createAlert(err.msg));
+        dispatch(alertActions.clearAlert(err.id));
+      });
+      dispatch(profileActions.clearLoading());
     }
   };
 }

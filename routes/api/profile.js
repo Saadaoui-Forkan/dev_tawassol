@@ -7,6 +7,7 @@ const { check, validationResult } = require('express-validator')
 
 const User = require('../../models/User')
 const Profile = require('../../models/Profile')
+const checkObjectId = require('../../middleware/checkObjectId')
 
 // @route   Get api/profile
 // @desc    Get current users profile 
@@ -119,27 +120,24 @@ router.get('/', async(req,res) => {
 // @route  GET api/profile/user/:user_id
 // @desc   Get profile by user id
 // @access Public
-router.get('/user/:user_id', async(req,res) => {
-    try {
-        const profile = await Profile.findOne({user: req.params.user_id})
-                                        .populate('user', ['name', 'avatar'])
-
-        if (!profile) {
-            return res.status(400).json({msg: 'Profile Not Found'})
-        }
-
-        res.json(profile)
-    } catch (err) {
-        console.error(err.message)
-        if (err.kind == 'ObjectId') {
-            return res.status(400).json({msg: 'Profile Not Found'})
-            // if we enter invalid userId like 1 or 123 or ... 
-            // res will send 'Server Error'
-            // So we use err.kind that means that the profile is not found
-        }
-        res.status(500).send('Server Error')
+router.get(
+    '/user/:user_id',
+    checkObjectId('user_id'),
+    async ({ params: { user_id } }, res) => {
+      try {
+        const profile = await Profile.findOne({
+          user: user_id
+        }).populate('user', ['name', 'avatar']);
+  
+        if (!profile) return res.status(400).json({ msg: 'Profile not found' });
+  
+        return res.json(profile);
+      } catch (err) {
+        console.error(err.message);
+        return res.status(500).json({ msg: 'Server error' });
+      }
     }
-})
+  );
 
 // @route  DELETE api/profile
 // @desc   Delete Profile, User & Post
