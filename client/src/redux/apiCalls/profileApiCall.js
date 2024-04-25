@@ -208,3 +208,26 @@ export function getSingleProfile(id) {
     }
   };
 }
+
+// Get User Repos From Github
+export function getUserRepos(userRepos) {
+  return async (dispatch) => {
+    try {
+      // dispatch(profileActions.setLoading());
+      const { data } = await axios.get(
+        `${PROFILE_URL}/github/${userRepos}`
+      );
+      dispatch(profileActions.addGithubRepos(data))
+      dispatch(profileActions.clearLoading()); 
+    } catch (error) {
+      const err = error.response?.data.msg;
+      // errors?.forEach((err) => {
+        dispatch(alertActions.createAlert(err));
+        // dispatch(alertActions.clearAlert(err.id));
+      // });
+      // dispatch(profileActions.clearLoading());
+      console.log(error.response.data.msg)
+      // dispatch(profileActions.clearLoading());
+    }
+  };
+}

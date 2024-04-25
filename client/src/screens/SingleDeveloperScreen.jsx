@@ -20,7 +20,7 @@ function SingleDeveloperScreen() {
   };
 
   const { profile, loading } = useSelector((state) => state.profile);
-  const { user } = useSelector(state => state.auth)
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getSingleProfile(user_id));
@@ -99,14 +99,18 @@ function SingleDeveloperScreen() {
                 ))
             : null}
         </div>
-        {user ? <div className="absolute left-4 bottom-2 flex">
-          <Link to="/dashboard" className="mx-2">
-            <Button>Dashboard</Button>
-          </Link>
-          <Link to="/">
-            <Button>Add a post</Button>
-          </Link>
-        </div> : ""}
+        {user ? (
+          <div className="absolute left-4 bottom-2 flex">
+            <Link to="/dashboard" className="mx-2">
+              <Button>Dashboard</Button>
+            </Link>
+            <Link to="/">
+              <Button>Add a post</Button>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
       <div className="flex">
         <h2
@@ -140,7 +144,9 @@ function SingleDeveloperScreen() {
           Experience
         </h2>
         <h2
-          onClick={() => toggleTab(4)}
+          onClick={() => {
+            toggleTab(4);
+          }}
           className={
             currentTab === 4
               ? "bg-slate-200 p-2 text-zinc-600 text-sm"

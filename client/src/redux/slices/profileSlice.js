@@ -4,6 +4,7 @@ const profileSlice = createSlice({
   name: "profile",
   initialState: {
     profile: [],
+    repos: [],
     loading: false,
     isProfileCreated: false,
   },
@@ -39,6 +40,9 @@ const profileSlice = createSlice({
       state.profile.education = state.profile.education.filter(
         (el) => el._id !== action.payload
       );
+    },
+    addGithubRepos(state, action) {
+      state.repos = action.payload
     },
   },
 });
