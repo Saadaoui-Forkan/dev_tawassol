@@ -81,25 +81,25 @@ function PostsScreen() {
               </span>
               <div className="flex flex-wrap mb-2">
                 <button
-                  className="bg-zinc-200 px-2 py-[5px] mb-2 flex items-center"
+                  className="bg-zinc-200 p-[5px] sm:px-2 sm:py-[5px] mb-2 flex items-center"
                   type="button"
                 >
-                  <i className="fa-solid fa-thumbs-up text-zinc-500"></i>
+                  <i className="fa-solid fa-thumbs-up text-zinc-500 text-sm sm:text-md"></i>
                   <span className="ml-2 text-xs">{post?.likes.length}</span>
                 </button>
                 <button
-                  className="bg-zinc-200 px-2 py-[5px] mx-2 mb-2"
+                  className="bg-zinc-200 p-[5px] sm:px-2 sm:py-[5px] mx-2 mb-2"
                   type="button"
                 >
-                  <i className="fa-solid fa-thumbs-down text-zinc-500"></i>
+                  <i className="fa-solid fa-thumbs-down text-zinc-500 text-sm sm:text-md"></i>
                 </button>
 
-                <button className="bg-emerald-600 px-2 py-[5px] flex items-center mr-2 mb-2" type="button">
-                  <i className="fa-solid fa-comment text-white"></i>
+                <button className="bg-emerald-600 p-[5px] sm:px-2 sm:py-[5px] flex items-center mr-2 mb-2" type="button">
+                  <i className="fa-solid fa-comment text-white text-sm sm:text-md"></i>
                   <span className="ml-2 text-xs text-white font-bold">{post?.comments.length}</span>
                 </button>
-                <button className="bg-red-600 px-2 py-[5px] mb-2" type="button">
-                  <i className="fa-solid fa-xmark text-white"></i>
+                <button className="bg-red-600 p-[5px] sm:px-2 sm:py-[5px] mb-2" type="button">
+                  <i className="fa-solid fa-xmark text-white text-sm sm:text-md"></i>
                 </button>
               </div>
             </div>
