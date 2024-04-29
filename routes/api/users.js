@@ -71,6 +71,7 @@ router.post(
           res.json({
             name: user.name,
             avatar: user.avatar,
+            id: user.id,
             token,
           });
         }

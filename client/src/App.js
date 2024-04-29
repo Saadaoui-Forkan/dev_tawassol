@@ -13,6 +13,7 @@ import AddExperienceScreen from "./screens/dashboard/AddExperienceScreen";
 import DevelopersScreen from "./screens/DevelopersScreen";
 import SingleDeveloperScreen from "./screens/SingleDeveloperScreen";
 import PostsScreen from "./screens/PostsScreen";
+import SinglePostScreen from "./screens/SinglePostScreen";
 
 function App() {
   const { user } = useSelector((state) => state.auth);
@@ -77,6 +78,7 @@ function App() {
           <Route path="/developers" element={<DevelopersScreen/>}/>
           <Route path="/developer/:user_id" element={<SingleDeveloperScreen/>}/>
           <Route path="/posts" element={user ? <PostsScreen/> : <Navigate to="/"/>}/>
+          <Route path="/posts/:postId" element={user ? <SinglePostScreen/> : <Navigate to="/"/>}/>
         </Routes>
       </main>
 
