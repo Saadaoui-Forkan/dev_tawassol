@@ -60,3 +60,22 @@ export function createPost(post) {
     }
   };
 }
+
+// Delete A Post
+export function removePost(postId) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(postActions.setLoading());
+      await axios.delete(`${POSTS_URL}/${postId}`, {
+        headers: {
+          "x-auth-token": getState().auth.user.token,
+        },
+      });
+      dispatch(postActions.deletePost(postId))
+      dispatch(postActions.clearLoading())
+    } catch (error) {
+      console.log(error);
+      dispatch(postActions.clearLoading())
+    }
+  };
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost, getPosts } from "../redux/apiCalls/postsApiCalls";
+import { createPost, getPosts, removePost } from "../redux/apiCalls/postsApiCalls";
 import Title from "../components/utils/Title";
 import Textarea from "../components/utils/Textarea";
 import Button from "../components/utils/Button";
@@ -19,12 +19,15 @@ function PostsScreen() {
   const handleCreatePost = () => {
     dispatch(createPost({ text }));
     setText("");
-    dispatch(getPosts());
   };
 
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
+
+  const handleRemovePost = (postId) => {
+    dispatch(removePost(postId))
+  }
 
   if (data.loading) {
     return (
@@ -119,6 +122,7 @@ function PostsScreen() {
                     <button
                       className="bg-red-600 p-[5px] sm:px-2 sm:py-[5px] mb-2"
                       type="button"
+                      onClick={() => handleRemovePost(post?._id)}
                     >
                       <i className="fa-solid fa-xmark text-white text-sm sm:text-md"></i>
                     </button>
