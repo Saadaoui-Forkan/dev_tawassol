@@ -17,6 +17,7 @@ export function getPosts() {
       // console.log(data);
     } catch (error) {
       console.log(error);
+      dispatch(postActions.clearLoading())
     }
   };
 }
@@ -72,6 +73,46 @@ export function removePost(postId) {
         },
       });
       dispatch(postActions.deletePost(postId))
+      dispatch(postActions.clearLoading())
+    } catch (error) {
+      console.log(error);
+      dispatch(postActions.clearLoading())
+    }
+  };
+}
+
+// Like A Post
+export function likePost(postId) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(postActions.setLoading());
+      const {data} = await axios.put(`${POSTS_URL}/like/${postId}`, postId, {
+        headers: {
+          "x-auth-token": getState().auth.user.token,
+        },
+      });
+      console.log(data)
+      dispatch(postActions.likePost(postId))
+      dispatch(postActions.clearLoading())
+    } catch (error) {
+      console.log(error);
+      dispatch(postActions.clearLoading())
+    }
+  };
+}
+
+// DisLike A Post
+export function dislikePost(postId) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(postActions.setLoading());
+      const {data} = await axios.put(`${POSTS_URL}/unlike/${postId}`, postId, {
+        headers: {
+          "x-auth-token": getState().auth.user.token,
+        },
+      });
+      console.log(data)
+      dispatch(postActions.likePost(postId))
       dispatch(postActions.clearLoading())
     } catch (error) {
       console.log(error);

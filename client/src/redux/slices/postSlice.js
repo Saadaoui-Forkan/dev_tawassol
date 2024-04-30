@@ -29,6 +29,9 @@ const postSlice = createSlice({
     deletePost(state, action) {
       state.posts = state.posts.filter(item => item._id !== action.payload)
     },
+    likePost(state, action) {
+      state.posts.likes = action.payload.likes
+    },
   },
 });
 

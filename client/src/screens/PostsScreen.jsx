@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost, getPosts, removePost } from "../redux/apiCalls/postsApiCalls";
+import { createPost, dislikePost, getPosts, likePost, removePost } from "../redux/apiCalls/postsApiCalls";
 import Title from "../components/utils/Title";
 import Textarea from "../components/utils/Textarea";
 import Button from "../components/utils/Button";
 import { Oval } from "react-loader-spinner";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { postActions } from "../redux/slices/postSlice";
 
 function PostsScreen() {
   const [text, setText] = useState("");
@@ -27,6 +28,16 @@ function PostsScreen() {
 
   const handleRemovePost = (postId) => {
     dispatch(removePost(postId))
+  }
+
+  const handleLikePost = (postId) => {
+    dispatch(likePost(postId))
+    console.log(postId)
+  }
+
+  const handleDislikePost = (postId) => {
+    dispatch(dislikePost(postId))
+    console.log(postId)
   }
 
   if (data.loading) {
@@ -94,6 +105,7 @@ function PostsScreen() {
                       user.id === post.user ? "cursor-not-allowed" : ""
                     }`}
                     type="button"
+                    onClick={() => handleLikePost(post?._id)}
                   >
                     <i className="fa-solid fa-thumbs-up text-zinc-500 text-sm sm:text-md"></i>
                     <span className="ml-2 text-xs">{post?.likes.length}</span>
@@ -103,6 +115,7 @@ function PostsScreen() {
                       user.id === post.user ? "cursor-not-allowed" : ""
                     }`}
                     type="button"
+                    onClick={() => handleDislikePost(post?._id)}
                   >
                     <i className="fa-solid fa-thumbs-down text-zinc-500 text-sm sm:text-md"></i>
                   </button>
