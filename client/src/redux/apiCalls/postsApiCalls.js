@@ -47,14 +47,13 @@ export function createPost(post) {
   return async (dispatch, getState) => {
     try {
       dispatch(postActions.setLoading());
-      const data = await axios.post(`${POSTS_URL}`, post, {
+      const {data} = await axios.post(`${POSTS_URL}`, post, {
         headers: {
           "x-auth-token": getState().auth.user.token,
         },
       });
-      dispatch(postActions.setPosts(data.data))
+      dispatch(postActions.setPosts(data))
       dispatch(postActions.clearLoading())
-      console.log(data);
     } catch (error) {
       console.log(error);
       dispatch(postActions.clearLoading())
@@ -67,12 +66,12 @@ export function removePost(postId) {
   return async (dispatch, getState) => {
     try {
       dispatch(postActions.setLoading());
-      await axios.delete(`${POSTS_URL}/${postId}`, {
+      const { data } = await axios.delete(`${POSTS_URL}/${postId}`, {
         headers: {
           "x-auth-token": getState().auth.user.token,
         },
       });
-      dispatch(postActions.deletePost(postId))
+      dispatch(postActions.deletePost(data))
       dispatch(postActions.clearLoading())
     } catch (error) {
       console.log(error);
@@ -91,11 +90,11 @@ export function likePost(postId) {
           "x-auth-token": getState().auth.user.token,
         },
       });
-      console.log(data)
-      dispatch(postActions.likePost(postId))
+      dispatch(postActions.updateLike( data))
       dispatch(postActions.clearLoading())
     } catch (error) {
-      console.log(error);
+      const errors = error?.response?.data?.errors;
+      // console.log(errors);
       dispatch(postActions.clearLoading())
     }
   };
@@ -111,11 +110,11 @@ export function dislikePost(postId) {
           "x-auth-token": getState().auth.user.token,
         },
       });
-      console.log(data)
-      dispatch(postActions.likePost(postId))
+      dispatch(postActions.updateLike(data))
       dispatch(postActions.clearLoading())
     } catch (error) {
-      console.log(error);
+      const errors = error?.response?.data?.errors;
+      // console.log(errors);
       dispatch(postActions.clearLoading())
     }
   };

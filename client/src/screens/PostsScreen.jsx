@@ -32,12 +32,10 @@ function PostsScreen() {
 
   const handleLikePost = (postId) => {
     dispatch(likePost(postId))
-    console.log(postId)
   }
 
   const handleDislikePost = (postId) => {
     dispatch(dislikePost(postId))
-    console.log(postId)
   }
 
   if (data.loading) {

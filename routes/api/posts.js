@@ -91,6 +91,7 @@ router.delete('/:id', [protect, checkObjectId('id')], async (req, res) => {
     }
 
     await post.deleteOne();
+    res.json(post)
   } catch (err) {
     console.error(err.message);
 
@@ -114,7 +115,7 @@ router.put('/like/:id', protect, checkObjectId('id'), async (req, res) => {
 
     await post.save();
 
-    return res.json(post.likes);
+    return res.json(post);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -129,7 +130,7 @@ router.put("/unlike/:id", protect, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
-    // Check if the post has been likred
+    // Check if the post has been liked
     if (
       post.likes.filter((like) => like.user.toString() === req.user.id)
         .length === 0
@@ -145,7 +146,7 @@ router.put("/unlike/:id", protect, async (req, res) => {
     post.likes.splice(removeIndex, 1)
 
     await post.save();
-    res.json(post.likes);
+    res.json(post);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

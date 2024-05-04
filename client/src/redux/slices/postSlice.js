@@ -9,10 +9,10 @@ const postSlice = createSlice({
   },
   reducers: {
     setPosts(state, action) {
-      state.posts = action.payload
+      state.posts = [ action.payload, ...state.posts]
     },
     getPosts(state, action) {
-      state.posts = action.payload
+      state.posts = action.payload;
     },
     setLoading(state) {
       state.loading = true;
@@ -27,10 +27,13 @@ const postSlice = createSlice({
       state.loading = false;
     },
     deletePost(state, action) {
-      state.posts = state.posts.filter(item => item._id !== action.payload)
+      console.log(action.payload)
+      state.posts = state.posts.filter((item) => item._id !== action.payload._id);
     },
-    likePost(state, action) {
-      state.posts.likes = action.payload.likes
+    updateLike(state, action) {
+      state.posts = state.posts.map((post) =>
+        post._id === action.payload._id ? action.payload : post
+      );
     },
   },
 });
