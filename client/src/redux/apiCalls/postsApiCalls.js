@@ -94,7 +94,7 @@ export function likePost(postId) {
       dispatch(postActions.clearLoading())
     } catch (error) {
       const errors = error?.response?.data?.errors;
-      // console.log(errors);
+      console.log(errors);
       dispatch(postActions.clearLoading())
     }
   };
@@ -114,7 +114,47 @@ export function dislikePost(postId) {
       dispatch(postActions.clearLoading())
     } catch (error) {
       const errors = error?.response?.data?.errors;
-      // console.log(errors);
+      console.log(errors);
+      dispatch(postActions.clearLoading())
+    }
+  };
+}
+
+// Comment Post
+export function commentPost(postId, formData) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(postActions.setLoading());
+      const {data} = await axios.post(`${POSTS_URL}/comment/${postId}`, formData, {
+        headers: {
+          "x-auth-token": getState().auth.user.token,
+        },
+      });
+      dispatch(postActions.addComment(data))
+      dispatch(postActions.clearLoading())
+    } catch (error) {
+      const errors = error?.response?.data?.errors;
+      console.log(errors);
+      dispatch(postActions.clearLoading())
+    }
+  };
+}
+
+// Remove Comment
+export function deleteComment(postId, commentId) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(postActions.setLoading());
+      await axios.delete(`${POSTS_URL}/comment/${postId}/${commentId}`, {
+        headers: {
+          "x-auth-token": getState().auth.user.token,
+        },
+      });
+      dispatch(postActions.deleteComment())
+      dispatch(postActions.clearLoading())
+    } catch (error) {
+      const errors = error?.response?.data?.errors;
+      console.log(errors);
       dispatch(postActions.clearLoading())
     }
   };

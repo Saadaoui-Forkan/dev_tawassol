@@ -27,13 +27,18 @@ const postSlice = createSlice({
       state.loading = false;
     },
     deletePost(state, action) {
-      console.log(action.payload)
       state.posts = state.posts.filter((item) => item._id !== action.payload._id);
     },
     updateLike(state, action) {
       state.posts = state.posts.map((post) =>
         post._id === action.payload._id ? action.payload : post
       );
+    },
+    addComment(state, action) {
+      state.posts = action.payload
+    },
+    removeComment(state, action) {
+      state.posts.comments = state.posts.comments.filter(c => c._id !== action.payload)
     },
   },
 });

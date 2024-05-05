@@ -7,7 +7,6 @@ import Button from "../components/utils/Button";
 import { Oval } from "react-loader-spinner";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import { postActions } from "../redux/slices/postSlice";
 
 function PostsScreen() {
   const [text, setText] = useState("");

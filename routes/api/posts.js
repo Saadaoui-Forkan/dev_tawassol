@@ -156,37 +156,39 @@ router.put("/unlike/:id", protect, async (req, res) => {
 // @route   POST api/posts/comment/:id
 // @desc    Comment a post
 // @access  Private
-router.post('/comment/:id', [protect, [
-    [check("text", "Text is required").not().isEmpty()]
-  ]],
-  async(req,res) => {
+router.post(
+  '/comment/:id',
+  protect,
+  checkObjectId('id'),
+  check('comment', 'Comment is required').notEmpty(),
+  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
     try {
+      const user = await User.findById(req.user.id).select('-password');
+      const post = await Post.findById(req.params.id);
 
-      const user = await User.findById(req.user.id).select('-password')
-      const post = await Post.findById(req.params.id)
-      
       const newComment = {
-        text: req.body.text,
+        comment: req.body.comment,
         name: user.name,
         avatar: user.avatar,
         user: req.user.id
-      }
+      };
 
-      post.comments.unshift(newComment)
+      post.comments.unshift(newComment);
 
-      await post.save()
-      res.json(post.comments)
-      
+      await post.save();
+
+      res.json(post);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("Server Error");
+      res.status(500).send('Server Error');
     }
-})
+  }
+);
 
 // @route   DELETE api/posts/comment/:id/:comment_id
 // @desc    Delete a comment
@@ -216,7 +218,7 @@ router.delete('/comment/:id/:comment_id', protect, async(req,res) => {
     post.comments.splice(removeIndex, 1)
 
     await post.save()
-    res.json(post.comments)
+    res.json(post)
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
