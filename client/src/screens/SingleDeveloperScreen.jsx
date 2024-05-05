@@ -104,7 +104,7 @@ function SingleDeveloperScreen() {
             <Link to="/dashboard" className="mx-2">
               <Button>Dashboard</Button>
             </Link>
-            <Link to="/">
+            <Link to="/posts">
               <Button>Add a post</Button>
             </Link>
           </div>

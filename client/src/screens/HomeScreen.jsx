@@ -1,7 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function HomeScreen() {
+
+  const { user } = useSelector((state) => state.auth);
   
   return (
     <div className="landing">
@@ -17,7 +20,7 @@ function HomeScreen() {
           <Link to={'/developers'}>Developers</Link>
         </h2>
         <h2 className="text-xl rounded-sm bg-fuchsia-50 text-fuchsia-600 p-2 m-2">
-          <Link to={'/posts'}>Posts</Link>
+          {user ? <Link to={'/posts'}>Posts</Link> : <Link to='/login'>Login</Link>}
         </h2>
         </div>
       </div>

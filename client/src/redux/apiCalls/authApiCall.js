@@ -7,9 +7,11 @@ import axios from "axios";
 export function loginUser(user) {
   return async (dispatch) => {
     try {
+      dispatch(authActions.setLoading())
       const { data } = await axios.post(AUTH_URL, user);
       dispatch(authActions.setCredentials(data));
       localStorage.setItem("user", JSON.stringify(data));
+      dispatch(authActions.clearLoading())
     } catch (error) {
       if (error) {
         const errors = error?.response?.data.errors;
@@ -18,6 +20,7 @@ export function loginUser(user) {
           dispatch(alertActions.clearAlert(err.id));
         });
       }
+      dispatch(authActions.clearLoading())
     }
   };
 }
@@ -26,15 +29,18 @@ export function loginUser(user) {
 export function registerUser(user) {
   return async (dispatch) => {
     try {
+      dispatch(authActions.setLoading())
       const { data } = await axios.post(REGISTER_URL, user);
       dispatch(authActions.setCredentials(data));
       localStorage.setItem("user", JSON.stringify(data));
+      dispatch(authActions.clearLoading())
     } catch (error) {
       const errors = error?.response?.data.errors;
       errors?.forEach((err) => {
         dispatch(alertActions.createAlert(err.msg));
         dispatch(alertActions.clearAlert(err.id));
       });
+      dispatch(authActions.clearLoading())
     }
   };
 }
