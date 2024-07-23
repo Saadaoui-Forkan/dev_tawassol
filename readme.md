@@ -39,13 +39,13 @@ This project is a social network application that allows users to interact with 
 - Protecting routes/endpoints with JWT (JSON Web Tokens).
 - Integrating React with the backend in an elegant way, creating a great work
 
-(./images/Dev1.png)
-(./images/Dev2.png)
-(./images/Dev3.png)
-(./images/Dev4.png)
-(./images/Dev5.png)
-(./images/Dev6.png)
-(./images/Dev7.png)
-(./images/Dev8.png)
+![img](./images/Dev1.png)
+![img](./images/Dev2.png)
+![img](./images/Dev3.png)
+![img](./images/Dev4.png)
+![img](./images/Dev5.png)
+![img](./images/Dev6.png)
+![img](./images/Dev7.png)
+![img](./images/Dev8.png)
 
 
