@@ -6,7 +6,7 @@ A full-stack social network application using Node.js, Express, React, Redux, an
 
 This project is a social network application that allows users to interact with each other and share their personal and professional information. The application includes the following features:
 
-(./images/Dev_Home.png)
+![Home Page](./images/Dev_Home.png)
 
 ### Login Form
 
