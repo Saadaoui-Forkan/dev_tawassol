@@ -1,7 +1,10 @@
 const express = require('express');
 const connectDB = require('./config/db')
 const cors = require('cors')
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
+const userRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
+const profileRouter = require('./routes/profile');
 
 dotenv.config()
 
@@ -28,9 +31,9 @@ app.use("*", cors({
 app.get('/', (req,res) => res.send('API running'))
 
 // Define Routes
-app.use('/api/users', require('./routes/users'))
-app.use('/api/auth', require('./routes/auth'))
-app.use('/api/profile', require('./routes/profile'))
+app.use('/api/users', userRouter)
+app.use('/api/auth', authRouter)
+app.use('/api/profile', profileRouter)
 app.use('/api/posts', require('./routes/posts'))
 
 const PORT = process.env.PORT || 5000
