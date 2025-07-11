@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const protect = require("../../middleware/authMiddleware");
+const protect = require("../middleware/authMiddleware");
 const { check, validationResult } = require("express-validator");
-
-const User = require("../../models/User");
-const Post = require("../../models/Post");
-const checkObjectId = require("../../middleware/checkObjectId");
+const User = require("../models/User");
+const Post = require("../models/Post");
+const checkObjectId = require("../middleware/checkObjectId");
 
 // @route   POST api/posts
 // @desc    Create a post
